@@ -1,5 +1,4 @@
 #include "sort.h"
-#include <stdio.h>
 /**
  * insertion_sort_list - function that sorts a doubly linked list
  * of integers in ascending order using the Insertion sort algorithm
@@ -26,6 +25,7 @@ void insertion_sort_list(listint_t **list)
 		node = node->next;
 	}
 }
+
 /**
  *swap_node - swap a node for his previous one
  *@node: node
