@@ -48,3 +48,4 @@ listint_t *swap_node(listint_t *node, listint_t **list)
 	back->prev = current;
 
 	return (current);
+}
