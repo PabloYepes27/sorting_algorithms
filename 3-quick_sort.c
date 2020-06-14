@@ -5,13 +5,13 @@
 *@item1: array element
 *@item2: array element
 */
-void swap(int *array, int item1, int item2)
+void swap(int *item1, int *item2)
 {
 	int tmp;
 
-	tmp = array[item1];
-	array[item1] = array[item2];
-	array[item2] = tmp;
+	tmp = (*item1);
+	(*item1) = (*item2);
+	(*item2) = tmp;
 }
 /**
  *lomuto_partition - lomuto partition sorting scheme implementation
@@ -25,7 +25,7 @@ int lomuto_partition(int *array, ssize_t first, ssize_t last, size_t size)
 {
 	int pivot = array[last];
 	ssize_t current = first, finder;
-	int aux;
+/*	int aux; */
 
 	for (finder = first; finder < last; finder++)
 	{
@@ -33,22 +33,24 @@ int lomuto_partition(int *array, ssize_t first, ssize_t last, size_t size)
 		{
 			if (array[current] != array[finder])
 			{
+				/*
 				aux = array[finder];
 				array[finder] = array[current];
-				array[current] = aux;
+				array[current] = aux; */
 				print_array(array, size);
-				/*swap(array, current, finder);*/
+				swap(&array[current], &array[finder]);
 			}
 			current++;
 		}
 	}
 	if (array[current] != array[last])
 	{
+		/*
 		aux = array[last];
 		array[last] = array[current];
-		array[current] = aux;
+		array[current] = aux; */
 		print_array(array, size);
-		/*swap(array, current, last);*/
+		swap(&array[current], &array[last]);
 	}
 	return (current);
 }
