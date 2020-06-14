@@ -1,7 +1,6 @@
 #include "sort.h"
 /**
 *swap - the positions of two elements into an array
-*@array: array
 *@item1: array element
 *@item2: array element
 */
@@ -33,10 +32,11 @@ int lomuto_partition(int *array, ssize_t first, ssize_t last, size_t size)
 		{
 			if (array[current] != array[finder])
 			{
-				/*
-				aux = array[finder];
-				array[finder] = array[current];
-				array[current] = aux; */
+			/*
+			*aux = array[finder];
+			*array[finder] = array[current];
+			*array[current] = aux;
+			*/
 				print_array(array, size);
 				swap(&array[current], &array[finder]);
 			}
@@ -46,9 +46,10 @@ int lomuto_partition(int *array, ssize_t first, ssize_t last, size_t size)
 	if (array[current] != array[last])
 	{
 		/*
-		aux = array[last];
-		array[last] = array[current];
-		array[current] = aux; */
+		*aux = array[last];
+		*array[last] = array[current];
+		*array[current] = aux;
+		*/
 		print_array(array, size);
 		swap(&array[current], &array[last]);
 	}
