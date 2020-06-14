@@ -21,30 +21,36 @@ void swap(int *array, int item1, int item2)
  *@size: size array
  *Return: return the position of the last element sorted
  */
-int lomuto_partition(int *array, int first, int last, int size)
+int lomuto_partition(int *array, ssize_t first, ssize_t last, size_t size)
 {
-	int pivot, current, finder, flag = 0;
+	int pivot = array[last];
+	ssize_t current = first, finder;
+	int aux;
 
-	pivot = array[last];
-	current = first - 1;
-
-	for (finder = first; finder <= last - 1; finder++)
+	for (finder = first; finder < last; finder++)
 	{
-		if (array[finder] <= pivot)
+		if (array[finder] < pivot)
 		{
+			if (array[current] != array[finder])
+			{
+				aux = array[finder];
+				array[finder] = array[current];
+				array[current] = aux;
+				print_array(array, size);
+				/*swap(array, current, finder);*/
+			}
 			current++;
-			swap(array, current, finder);
 		}
 	}
-	if (current != first - 1)
+	if (array[current] != array[last])
 	{
+		aux = array[last];
+		array[last] = array[current];
+		array[current] = aux;
 		print_array(array, size);
-		flag = 1;
+		/*swap(array, current, last);*/
 	}
-	swap(array, current + 1, last);
-	if (flag == 0)
-		print_array(array, size);
-	return (current + 1);
+	return (current);
 }
 /**
  *qs - qucksort algorithm implementation
@@ -53,9 +59,9 @@ int lomuto_partition(int *array, int first, int last, int size)
  *@last: last array element
  *@size: array size
  */
-void qs(int *array, int first, int last, int size)
+void qs(int *array, ssize_t first, ssize_t last, int size)
 {
-	int position;
+	ssize_t position = 0;
 
 
 	if (first < last)
@@ -64,7 +70,6 @@ void qs(int *array, int first, int last, int size)
 
 		qs(array, first, position - 1, size);
 		qs(array, position + 1, last, size);
-
 	}
 }
 /**
@@ -74,6 +79,7 @@ void qs(int *array, int first, int last, int size)
  */
 void quick_sort(int *array, size_t size)
 {
+	if (!array || size < 2)
+		return;
 	qs(array, 0, size - 1, size);
-	print_array(array, size);
 }
