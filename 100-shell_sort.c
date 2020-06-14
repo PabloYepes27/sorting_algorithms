@@ -23,7 +23,7 @@ void swap(int *array, int item1, int item2)
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t gap = 0, i, index = 0;
+	size_t gap = 1, i, index = 0;
 
 	if (array == NULL || size < 2)
 		return;
