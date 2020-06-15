@@ -31,33 +31,33 @@ listint_t *swap_node(listint_t *node, listint_t **list)
 void cocktail_sort_list(listint_t **list)
 {
 	listint_t *node;
-	int done = 1;
+	int swap_done = 1;
 
-	if ((*list) == '\0' || (*list)->next == '\0')
+	if (list == '\0' || (*list) == '\0' || (*list)->next == '\0')
 		return;
 	node = *list;
-	while (done == 1)
+	while (swap_done == 1)
 	{
-		done = 0;
+		swap_done = 0;
 		while (node->next)
 		{
 			if (node->n > node->next->n)
 			{
 				node = swap_node(node->next, list);
-				done = 1;
+				swap_done = 1;
 				print_list(*list);
 			}
 			node = node->next;
 		}
-		if (done == 0)
+		if (swap_done == 0)
 			break;
-		done = 0;
+		swap_done = 0;
 		while (node->prev)
 		{
 			if (node->n < node->prev->n)
 			{
 				node = swap_node(node, list);
-				done = 1;
+				swap_done = 1;
 				print_list(*list);
 			}
 			else
