@@ -30,6 +30,8 @@ void counting_sort(int *array, size_t size)
 	int index, maximun = 0, *counter = '\0', *tmp = '\0';
 	size_t i;
 
+	if (array == '\0' || size < 2)
+		return;
 	/* find maximun number */
 	for (i = 0; i < size; i++)
 		if (array[i] > maximun)
