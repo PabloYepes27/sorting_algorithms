@@ -23,11 +23,13 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 /**
  *merge - make a merge
  *@arr: one from start to mid
+ *@tmp: temp array used in merge, was created outside to
+ *optimize reducing the system calls
  *@start: first element position
  *@mid: array middle
  *@end: last element position
  **/
-void merge(int *arr, int start, int mid, int end)
+void merge(int *arr, int *tmp, int start, int mid, int end)
 {
 	/*  sizes and temp arrays */
 	int size_left = mid - start + 1, size_right = end - mid;
@@ -35,8 +37,8 @@ void merge(int *arr, int start, int mid, int end)
 	/* counters */
 	int left, right, i = 0;
 
-	array_left = _calloc(size_left + size_right + 1, sizeof(int));
-	array_right = &array_left[size_right];
+	array_left = &tmp[0];
+	array_right = &tmp[size_right];
 	for (left = 0; left < size_left; left++)
 		array_left[left] = arr[start + left];
 	for (right = 0; right < size_right; right++)
@@ -64,17 +66,18 @@ void merge(int *arr, int start, int mid, int end)
 	print_array(array_right, right);
 	printf("[Done]: ");
 	print_array(&arr[start], left + right);
-	free(array_left);
 }
 /**
  *mergesort - function that sorts an array of integers
  *in ascending order using the Merge sort algorithm
  *@array: array of integers
+ *@tmp: temp array used in merge, was created outside to
+ *optimize reducing the system calls
  *@start: fisrt element position
  *@end: last element position
  *Return: void
  */
-void mergesort(int *array, int start, int end)
+void mergesort(int *array, int *tmp, int start, int end)
 {
 	int mid;
 
@@ -83,9 +86,9 @@ void mergesort(int *array, int start, int end)
 		mid--;
 	if (mid >= start)
 	{
-		mergesort(array, start, mid);
-		mergesort(array, mid + 1, end);
-		merge(array, start, mid, end);
+		mergesort(array, tmp, start, mid);
+		mergesort(array, tmp, mid + 1, end);
+		merge(array, tmp, start, mid, end);
 	}
 }
 /**
@@ -97,7 +100,11 @@ void mergesort(int *array, int start, int end)
  */
 void merge_sort(int *array, size_t size)
 {
+	int *tmp;
+
 	if (!array || size < 2)
 		return;
-	mergesort(array, 0, size - 1);
+	tmp = _calloc(size, sizeof(int));
+	mergesort(array, tmp, 0, size - 1);
+	free(tmp);
 }
