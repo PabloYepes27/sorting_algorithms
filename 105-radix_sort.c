@@ -44,12 +44,13 @@ int getMax(int arr[], int n)
 * @exp: exp is 10^i
 * @output: array to save the temporary values
 */
-void countSort(int arr[], int n, int exp, int *output)
+void countSort(int *arr, size_t n, int exp, int *output)
 {
-	int i, count[10] = {0};
+	int i;
+	int count[10] = {0};
 
 	/* Store count of occurrences in count[] */
-	for (i = 0; i < n; i++)
+	for (i = 0; i < (int)n; i++)
 		count[(arr[i] / exp) % 10]++;
 
 	/*
@@ -70,7 +71,7 @@ void countSort(int arr[], int n, int exp, int *output)
 	* Copy the output array to arr[], so that arr[] now
     * contains sorted numbers according to current digit
 	*/
-	for (i = 0; i < n; i++)
+	for (i = 0; i < (int)n; i++)
 		arr[i] = output[i];
 	/*print_array(arr, n);*/
 }
@@ -91,6 +92,8 @@ void radix_sort(int *array, size_t size)
 		return;
 
 	output = _calloc(size + 1, sizeof(int));
+	if (output == '\0')
+		return;
 	/*
 	* Do counting sort for every digit. Note that instead
     * of passing digit number, exp is passed. exp is 10^i
