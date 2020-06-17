@@ -6,7 +6,7 @@
  *@size: bit size of each element
  *Return: pointer to memory assignement
  */
-void *_calloc(unsigned int nmemb, unsigned int size)
+/*void *_calloc(unsigned int nmemb, unsigned int size)
 {
 	unsigned int i = 0;
 	char *p;
@@ -19,14 +19,14 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 	for (i = 0; i < (nmemb * size); i++)
 		p[i] = '\0';
 	return (p);
-}
+}*/
 /**
 * getMax - A utility function to get maximum value in arr[]
 * @arr: array
 * @n: size of the array
 * Return: array
 */
-int getMax(int arr[], int n)
+int getMax(int *arr, int n)
 {
 	int i, max = arr[0];
 
@@ -57,7 +57,7 @@ void countSort(int *arr, size_t n, int exp, int *output)
 	* Change count[i] so that count[i] now contains actual
     * position of this digit in output[]
 	*/
-	for (i = 0; i < 10; i++)
+	for (i = 1; i < 10; i++)
 		count[i] += count[i - 1];
 
 	/* Build the output array */
@@ -85,13 +85,14 @@ void countSort(int *arr, size_t n, int exp, int *output)
 void radix_sort(int *array, size_t size)
 {
 	/* Find the maximum number to know number of digits */
-	int exp, maximum = getMax(array, size);
+	int exp, maximum = 0;
 	int *output = '\0'; /* output array should be n(size) */
 
 	if (array == '\0' || size < 2)
 		return;
 
-	output = _calloc(size + 1, sizeof(int));
+	maximum = getMax(array, size);
+	output = malloc(size * sizeof(int));
 	if (output == '\0')
 		return;
 	/*
