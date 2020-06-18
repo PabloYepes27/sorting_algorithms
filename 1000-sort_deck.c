@@ -1,7 +1,7 @@
 #include "deck.h"
 #include <stdio.h>
 /**
- *comp_str - compare two strings
+ *_strcmp - compare two strings
  *@str1: string
  *@str2: string
  *Return: 1 str1 and str2 is equal, 0 they are not equal
